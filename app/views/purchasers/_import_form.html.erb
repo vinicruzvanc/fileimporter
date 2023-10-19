@@ -1,0 +1,22 @@
+<%= form_with url: import_purchasers_path, method: :post do |f| %>
+  <div class="container">
+    <div class="custom-file">
+      <%= f.file_field :file, accept: ".txt, .csv", class: "custom-file-input", id: "customFile" %>
+      <label class="custom-file-label" for="customFile" data-browse="Buscar">Selecione um arquivo...</label>
+    </div>
+    <br>
+    <br>
+    <%= f.submit "Upload de arquivo", class: "btn btn-secondary btn-dark" %>
+  </div>
+</form>
+<% end %>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const customFileInput = document.getElementById('customFile');
+    const customFileLabel = customFileInput.nextElementSibling;
+
+    customFileInput.addEventListener('change', function () {
+      customFileLabel.innerHTML = this.files[0].name;
+    });
+  });
+</script>

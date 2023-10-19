@@ -1,0 +1,46 @@
+<%= form_with(model: purchaser) do |form| %>
+  <% if purchaser.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(purchaser.errors.count, "error") %> prohibited this purchaser from being saved:</h2>
+      <ul>
+        <% purchaser.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field form-group">
+    <%= form.label :purchaser_name, "Nome Comprador",style: "display: block" %>
+    <%= form.text_field :purchaser_name, class:"form-control" %>
+  </div>
+  <div class="field form-group">
+    <%= form.label :item_description, "Descrição do Item", style: "display: block" %>
+    <%= form.text_field :item_description, class:"form-control" %>
+  </div>
+  <div class="field form-group">
+  <%= form.label :item_price, "Preço do Item", style: "display: block" %>
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <span class="input-group-text">R$</span>
+    </div>
+    <%= form.number_field :item_price, class: "form-control" %>
+  </div>
+</div>
+  <div class="field form-group">
+    <%= form.label :purchase_count, "Qtde. Adquirida", style: "display: block" %>
+    <%= form.number_field :purchase_count, class:"form-control" %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :merchant_address, "Endereço do Comerciante", style: "display: block" %>
+    <%= form.text_field :merchant_address, class:"form-control" %>
+  </div>
+  <div class="field form-group">
+    <%= form.label :merchant_name, "Nome do Comerciante", style: "display: block" %>
+    <%= form.text_field :merchant_name, class:"form-control" %>
+  </div>
+  <div class="field form-group">
+    <br>
+    <%= form.submit "Confirmar", class:"btn btn-secondary" %>
+  </div>
+<% end %>

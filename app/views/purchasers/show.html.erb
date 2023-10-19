@@ -1,0 +1,21 @@
+<div class="container mt-4">
+  <h3>Detalhes do Comprador</h3>
+  <ul class="list-group">
+    <li class="list-group-item"><strong>Nome Comprador:</strong> <%= @purchaser.purchaser_name %></li>
+    <li class="list-group-item"><strong>Descrição do Item:</strong> <%= @purchaser.item_description %></li>
+    <li class="list-group-item"><strong>Preço do Item:</strong> <%= number_to_currency(@purchaser.item_price, unit: "R$") %></li>
+    <li class="list-group-item"><strong>Qtde. Adquirida:</strong> <%= @purchaser.purchase_count %></li>
+    <li class="list-group-item"><strong>Total Bruto:</strong> <%= number_to_currency(@purchaser.total_income, unit: "R$") %></li>
+    <li class="list-group-item"><strong>Endereço do Comerciante:</strong> <%= @purchaser.merchant_address %></li>
+    <li class="list-group-item"><strong>Nome do Comerciante:</strong> <%= @purchaser.merchant_name %></li>
+  </ul>
+<div>
+  <br>
+  <%= link_to "Editar", edit_purchaser_path(@purchaser), class: "btn btn-secondary", style: "margin-right: 10px; float: left;" %>
+  <%= button_to "Deletar", @purchaser, method: :delete, data: {confirm: "Você tem certeza?"}, class: 'btn btn-danger', style: "float: left;" %>
+<br>
+<br>
+<br>
+  <%= link_to "Voltar", purchasers_path, class: "btn btn-secondary btn-dark", style: "margin-right: 10px; float: left;" %>
+<div style="clear: both;"></div>
+</div>
