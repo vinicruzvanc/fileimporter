@@ -14,6 +14,17 @@
 ## Database utilizada:
 - SQLite 3
 
+## O que faz esta aplicação?
+
+- Esta aplicação é um importador de arquivos com destino a receber informações de compradores, ela contempla as seguintes informações:
+ * Nome Comprador
+ * Descrição do Item
+ * Preço do Item
+ * Qtde. Adquirida
+ * Total Bruto (R$)
+ * Endereço do Comerciante
+ * Nome do Comerciante
+
 ## Instruções para inicialização:
 
 1. Clone o repositório em sua máquina.
@@ -29,8 +40,8 @@
 
 * Exemplo de formato válido:
 
-purchaser name	item description	item price	purchase count	merchant address	merchant name
-João Silva	R$10 off R$20 of food	10.0	2	987 Fake St	Bob's Pizza
+ 1. (Linha 1) purchaser name	item description	item price	purchase count	merchant address	merchant name
+ 2. (Linha 2) João Silva	R$10 off R$20 of food	10.0	2	987 Fake St	Bob's Pizza
 
 - É possível listar tudo o que foi importado na aba "Lista de Compradores".
 - É possível adicionar um novo cadastro manualmente.
@@ -41,14 +52,13 @@ João Silva	R$10 off R$20 of food	10.0	2	987 Fake St	Bob's Pizza
 
 - Foram utilizadas as seguintes extensões: 
 
-Ruby [https://marketplace.visualstudio.com/items?itemName=rebornix.Ruby];
-Ruby on Rails [https://marketplace.visualstudio.com/items?itemName=hridoy.rails-snippets];
-Ruby LSP [https://marketplace.visualstudio.com/items?itemName=Shopify.ruby-lsp];
-Bootstrap 4, Font awesome 4, Font Awesome 5 Free & Pro snippets [https://marketplace.visualstudio.com/items?itemName=thekalinga.bootstrap4-vscode];
-ERB Formatter/Beautify [https://marketplace.visualstudio.com/items?itemName=aliariff.vscode-erb-beautify];
-ruby-rubocop [https://marketplace.visualstudio.com/items?itemName=misogi.ruby-rubocop];
-Tailwind CSS IntelliSense [https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss]
-
+ * Ruby [https://marketplace.visualstudio.com/items?itemName=rebornix.Ruby];
+ * Ruby on Rails [https://marketplace.visualstudio.com/items?itemName=hridoy.rails-snippets];
+ * Ruby LSP [https://marketplace.visualstudio.com/items?itemName=Shopify.ruby-lsp];
+ * Bootstrap 4, Font awesome 4, Font Awesome 5 Free & Pro snippets [https://marketplace.visualstudio.com/items?itemName=thekalinga.bootstrap4-vscode];
+ * ERB Formatter/Beautify [https://marketplace.visualstudio.com/items?itemName=aliariff.vscode-erb-beautify];
+ * ruby-rubocop [https://marketplace.visualstudio.com/items?itemName=misogi.ruby-rubocop];
+ * Tailwind CSS IntelliSense [https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss]
 
 ## Erros identificados e como foram corrigidos:
 
@@ -56,30 +66,30 @@ Tailwind CSS IntelliSense [https://marketplace.visualstudio.com/items?itemName=b
 
   **Solução**: Resolvido rodando os seguintes comandos:
 
-  gem source -a http://rubygems.org
-  gem update --system
+  * gem source -a http://rubygems.org
+  * gem update --system
 
 
 - **Problema**: Ao tentar iniciar o servidor Rails, ocorria um erro na gem "nokogiri".
 
   **Solução**: Resolvido rodando os seguintes comandos:
 
-  gem uninstall nokogiri
-  gem install nokogiri
+  * gem uninstall nokogiri
+  * gem install nokogiri
 
 - **Problema**: Ao tentar iniciar o servidor Rails, ocorria um erro na gem "nokogiri".
 
   **Solução**: Resolvido rodando os seguintes comandos:
 
-  gem uninstall nokogiri
-  gem install nokogiri
+  * gem uninstall nokogiri
+  * gem install nokogiri
 
 - **Problema**: Não estava sendo possível rodar o debugger corretamente no VSCode.
 
   **Solução**: Resolvido da seguinte forma:
 
-  1- Crie uma pasta chamada ".vscode" dentro do root_path.
-  2- Crie o arquivo "launch.json" e insira os seguintes dados:
+  1. Crie uma pasta chamada ".vscode" dentro do root_path.
+  2. Crie o arquivo "launch.json" e insira os seguintes dados:
 
   {
     "configurations": [
@@ -93,11 +103,11 @@ Tailwind CSS IntelliSense [https://marketplace.visualstudio.com/items?itemName=b
         }
     ]
 }
-  3- Rode o comando:
+  3. Rode o comando:
 
-  rdebug-ide --host 0.0.0.0 --port 3001 --dispatcher-port 3001 -- bin/rails s
+  * rdebug-ide --host 0.0.0.0 --port 3001 --dispatcher-port 3001 -- bin/rails s
 
-  4- Execute o debugger no VSCode "Listen for rdebug-ide"
+  4. Execute o debugger no VSCode "Listen for rdebug-ide"
 
 
 
