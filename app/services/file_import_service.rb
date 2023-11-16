@@ -8,8 +8,8 @@ class FileImportService
 
     def import
       if @file.original_filename.end_with?('.csv')
-        CSV.foreach(@file.path, col_sep: "\t", headers: true) do |row|
-          columns = row.to_s.split("\t")
+        CSV.foreach(@file.path, col_sep: ["\t", ";"], headers: true) do |row|
+          columns = row.to_s.split(/\t|;/)
 
           purchaser_name = columns[0]
           item_description = columns[1]
@@ -38,7 +38,7 @@ class FileImportService
             if index.zero?
               next
             end
-            data = line.strip.split("\t")
+            data = line.strip.split(/\t|;/)
             purchaser_name = data[0]
             item_description = data[1]
             item_price = data[2].to_f

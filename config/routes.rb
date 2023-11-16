@@ -4,8 +4,13 @@ Rails.application.routes.draw do
       post :import
     end
   end
-  get 'purchasers/purchaser'
+  
   root 'pages#home'
+
+  resources :authentications, controller: "authentication_users"
+
+  resources :login_users
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

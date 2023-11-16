@@ -5,6 +5,19 @@ ruby "3.2.2"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.8"
+gem 'jquery-rails', '~> 4.4'
+# Para debuggar com o binding.pry
+gem "pry", "~> 0.14.2"
+
+gem 'pry-nav'
+
+# Para mostrar os erros em highligth, precisa de javascript
+
+gem 'parsley-rails', '~> 2.8', '>= 2.8.1.0'
+
+# Autenticação OAUTH2
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"

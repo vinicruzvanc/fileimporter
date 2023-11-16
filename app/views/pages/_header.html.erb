@@ -8,6 +8,9 @@
       <li class="nav-item <%= request.path == purchasers_path ? 'active' : '' %>">
         <%= link_to 'Lista de Compradores', purchasers_path, class: "nav-link"%>
       </li>
+      <li class="nav-item <%= request.path == authentications_path ? 'active' : ''%>">
+        <%= link_to 'Usuários', authentications_path, class:"nav-link"%>
+      </li>
     </ul>
   </div>
 </nav>
