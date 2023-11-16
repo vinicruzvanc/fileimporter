@@ -42,10 +42,9 @@ end
   def create
     @purchaser = Purchaser.new(purchaser_params)
 
-    @purchaser.total_income = @purchaser.purchase_count * @purchaser.item_price
-
     respond_to do |format|
-      if @purchaser.save
+      if @purchaser.save       
+        @purchaser.total_income = @purchaser.purchase_count * @purchaser.item_price
         format.html { redirect_to purchaser_url(@purchaser), notice: "Cadastro efetuado com sucesso!" }
         format.json { render :show, status: :created, location: @purchaser }
       else
@@ -59,8 +58,8 @@ end
   def update
     respond_to do |format|
       if @purchaser.update(purchaser_params)
-        @purchaser.total_income = @purchaser.item_price * @purchaser.purchase_count
         @purchaser.save
+        @purchaser.total_income = @purchaser.item_price * @purchaser.purchase_count
         format.html { redirect_to purchaser_url(@purchaser), notice: "Edição de cadastro efetuada com sucesso!" }
         format.json { render :show, status: :ok, location: @purchaser }
       else
@@ -75,7 +74,7 @@ end
     @purchaser.destroy
 
     respond_to do |format|
-      format.html { redirect_to purchasers_url, notice: "Cadastro foi deletado com sucesso!" }
+      format.html { redirect_to purchasers_url, notice: "Cadastro deletado com sucesso!" }
       format.json { head :no_content }
     end
   end
@@ -88,6 +87,6 @@ end
 
     # Only allow a list of trusted parameters through.
     def purchaser_params
-      params.require(:purchaser).permit(:purchaser_name, :item_description, :item_price, :purchase_count, :merchant_address, :merchant_name)
+      params.require(:purchaser).permit(:purchaser_name, :item_description, :item_price, :purchase_count, :item_price,:merchant_address, :merchant_name)
     end
 end

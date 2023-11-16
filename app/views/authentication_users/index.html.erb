@@ -1,0 +1,27 @@
+<h1>Lista de usuários cadastrados</h1>
+
+<table class="table table-sm">
+  <thead>
+    <tr>
+      <th scope="col", style="text-align: left;">Usuário</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+     <% @authentication_users.each do |authentication| %>
+    <tr>
+    <td style="text-align: left;"><%= authentication.username%></td>
+    <td>
+    <div style="display: flex; align-items: right;">
+        <%= link_to "Detalhes", authentication_path(authentication), class:"btn btn-secondary btn-sm", style: "margin-right: 10px;" %>
+        <%= link_to "Editar", edit_authentication_path(authentication), class:"btn btn-secondary btn-sm", style: "margin-right: 10px;" %>
+        <%= button_to "Deletar", authentication, method: :delete, class: 'btn btn-danger btn-sm' %>
+     </div>
+     </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+  <div id="authentications">
+    <%= link_to "Adicionar Novo", new_authentication_path, class:"btn btn-secondary btn-dark" %>
+  </div>

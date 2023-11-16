@@ -8,7 +8,7 @@
       <th scope="col" style="text-align: center;">Total Bruto</th>
       <th scope="col" style="text-align: center;">Endereço do Comerciante</th>
       <th scope="col" style="text-align: center;">Nome do Comerciante</th>
-      <th scope="col"></th>
+      <th scope="col" style="text-align: right;"></th>
     </tr>
   </thead>
   <tbody>
@@ -26,9 +26,10 @@
           <div style="display: flex; align-items: center;">
             <%= link_to "Detalhes", purchaser_path(purchaser), class:"btn btn-secondary btn-sm", style: "margin-right: 10px;" %>
             <%= link_to "Editar", edit_purchaser_path(purchaser), class:"btn btn-secondary btn-sm", style: "margin-right: 10px;" %>
-            <%= button_to "Deletar", purchaser, method: :delete, data: {confirm: "Você tem certeza?"}, class: 'btn btn-danger btn-sm' %>
+            <%= button_to "Deletar", purchaser, method: :delete, data: {turbo_confirm: "Você tem certeza?"}, class: 'btn btn-danger btn-sm' %>
           </div>
         </td>
+      </tr>
       <% end %>
     </tbody>
   </table>
