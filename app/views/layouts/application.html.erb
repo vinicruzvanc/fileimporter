@@ -14,8 +14,13 @@
         <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
       </head>
       <body>
-        <%= render "pages/header"%>
-        <%= render "layouts/alerts" %>
+        <div id="login_header">  
+            <% if @_current_user %>  
+              Usuário logado: <%= @_current_user.username %>.  
+              <%= link_to "Log Out", logout_path %>  
+              <%= render "pages/header"%>
+            <% end %>  
+          <%= render "layouts/alerts" %>
         <div class="container">
           <%= yield %>
         </div>

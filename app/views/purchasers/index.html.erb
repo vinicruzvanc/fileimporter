@@ -1,3 +1,5 @@
+<br>
+<%= paginate @purchasers, window: 5 %>
 <table class="table">
   <thead class="thead-dark">
     <tr>
@@ -36,3 +38,5 @@
   <div id="purchasers">
     <%= link_to "Adicionar Novo", new_purchaser_path, class:"btn btn-secondary btn-dark" %>
   </div>
+  <br>
+<%= paginate @purchasers, window: 5 %>

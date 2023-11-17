@@ -21,7 +21,7 @@ end
 
   # GET /purchasers or /purchasers.json
   def index
-    @purchasers = Purchaser.all
+    @purchasers = Purchaser.order(:purchaser_name).page(params[:page])
   end
 
   # GET /purchasers/1 or /purchasers/1.json
@@ -74,7 +74,7 @@ end
     @purchaser.destroy
 
     respond_to do |format|
-      format.html { redirect_to purchasers_url, notice: "Cadastro deletado com sucesso!" }
+      format.html { redirect_to purchasers_url, status: :see_other, notice: "Cadastro deletado com sucesso!" }
       format.json { head :no_content }
     end
   end

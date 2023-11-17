@@ -1,18 +1,23 @@
 class LoginUsersController < ApplicationController
+    skip_before_action :user_logged_in?, only: [:new, :create]
 
     def new
-        @login_user = LoginUser.new
     end
 
     def create
-        if user = User.authenticate(params[:username], params[:password])
-            session[:current_user_id] = user.id
-            redirect_to root_url
-          end      
+        authentication = Authentication.find_by_username(params[:username])
+        
+        if authentication && authentication.password == params[:password]
+            session[:current_user_id] = authentication.id
+            redirect_to root_path, notice: 'Login efetuado com sucesso'
+        else
+            redirect_to login_path, alert: 'Usuário ou senha inválidos!'
+        end
     end
 
     def destroy
-        @login_user.destroy
-        redirect_to new_login_user_path, alert: 'Você saiu da sessão, efetue um novo login'
+        session.delete(:current_user_id)
+        @_current_user = nil
+        redirect_to login_path, alert: 'Você foi deslogado, efetue o login novamente para continuar'
     end
 end

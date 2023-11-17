@@ -12,7 +12,7 @@
 <div>
   <br>
   <%= link_to "Editar", edit_purchaser_path(@purchaser), class: "btn btn-secondary", style: "margin-right: 10px; float: left;" %>
-  <%= button_to "Deletar", @purchaser, method: :delete, data: {confirm: "Você tem certeza?"}, class: 'btn btn-danger', style: "float: left;" %>
+  <%= button_to "Deletar", @purchaser, method: :delete, form: { data: { 'turbo-confirm': 'Are you sure?' } }, class: 'btn btn-danger', style: "float: left;" %>
 <br>
 <br>
 <br>

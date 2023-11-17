@@ -25,3 +25,5 @@
   <div id="authentications">
     <%= link_to "Adicionar Novo", new_authentication_path, class:"btn btn-secondary btn-dark" %>
   </div>
+  <br>
+  <%= paginate @authentication_users, window: 5 %>

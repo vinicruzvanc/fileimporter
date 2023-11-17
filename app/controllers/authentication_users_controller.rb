@@ -1,5 +1,4 @@
 class AuthenticationUsersController < ApplicationController
-
     before_action :find_user_id, only: [:show, :edit, :update, :destroy]
 
     def find_user_id
@@ -7,7 +6,7 @@ class AuthenticationUsersController < ApplicationController
     end
 
     def index
-        @authentication_users = Authentication.all
+        @authentication_users = Authentication.order(:username).page(params[:page])
     end
     
     def show

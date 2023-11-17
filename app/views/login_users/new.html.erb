@@ -1,3 +1,14 @@
-<h1> Login </h1>
+<h1> Acesso ao sistema </h1>
 
-<%= render "form" %>
+<%= form_tag login_users_path do%>
+
+ <div class="form-group">
+    <%= label_tag :username, "Usuário", style: "display: block" %>
+    <%= text_field_tag :username%>
+  </div>
+  <div class="form-group">
+    <%= label_tag :password, "Senha", style: "display: block" %>
+    <%= password_field_tag :password%>
+  </div>
+ <%= submit_tag "Login", class:"btn btn-primary btn-dark" %>
+<% end %>

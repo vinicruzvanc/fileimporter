@@ -1,9 +1,14 @@
 class ApplicationController < ActionController::Base
+  before_action :user_logged_in?
 
-    private
+  private
 
     def current_user
-        @_current_user ||= session[:current_user_id] &&
-          Authentication.find_by(id: session[:current_user_id])
+      @_current_user ||= session[:current_user_id] &&
+        Authentication.find_by(id: session[:current_user_id])
+    end
+
+    def user_logged_in?
+      return redirect_to login_path, alert: 'É necessário logar no sistema para continuar!' unless current_user
     end
 end
