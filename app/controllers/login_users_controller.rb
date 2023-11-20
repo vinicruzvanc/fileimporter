@@ -6,10 +6,15 @@ class LoginUsersController < ApplicationController
 
     def create
         authentication = Authentication.find_by_username(params[:username])
-        
-        if authentication && authentication.password == params[:password]
+        role = authentication.user_role
+        auth_user_role = UserRole.find_by_role_name(role)
+
+        if authentication && authentication.password == params[:password] 
             session[:current_user_id] = authentication.id
-            redirect_to root_path, notice: 'Login efetuado com sucesso'
+
+            return redirect_to root_path, notice: 'Login efetuado com sucesso'
+           # return redirect_to purchasers_path, notice: 'Login efetuado com sucesso' if role == "SISTEMA"
+           # return redirect_to login_path, alert: 'Usuário não possui permissão para realizar a operação, contate o administrador!' if role.nil? || role != "ADMIN" && role != "SISTEMA"
         else
             redirect_to login_path, alert: 'Usuário ou senha inválidos!'
         end

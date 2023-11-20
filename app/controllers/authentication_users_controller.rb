@@ -1,8 +1,13 @@
 class AuthenticationUsersController < ApplicationController
     before_action :find_user_id, only: [:show, :edit, :update, :destroy]
+    before_action :list_user_roles, only: [:new, :edit, :create, :update]
 
     def find_user_id
        @authentication = Authentication.find(params[:id])
+    end
+
+    def list_user_roles
+        @user_roles = UserRole.all.map{ |string| [string.role_name, string.id] }
     end
 
     def index
@@ -31,7 +36,6 @@ class AuthenticationUsersController < ApplicationController
 
     def update
         if @authentication.update(auth_params)
-            @authentication.save
             redirect_to authentications_path, notice: 'Usuário editado com sucesso'
         else
             render :edit, status: :unprocessable_entity
@@ -46,6 +50,6 @@ class AuthenticationUsersController < ApplicationController
 
     private
         def auth_params
-            params.require(:authentication).permit(:username, :password, :password_confirmation)
+            params.require(:authentication).permit(:username, :password, :password_confirmation, :user_role_id)
         end
 end

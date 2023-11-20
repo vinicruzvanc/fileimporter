@@ -10,18 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_16_163240) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_20_171344) do
   create_table "authentications", force: :cascade do |t|
     t.string "username"
     t.string "password"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "login_users", force: :cascade do |t|
-    t.string "user_logged_in"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer "user_role_id"
+    t.index ["user_role_id"], name: "index_authentications_on_user_role_id"
   end
 
   create_table "purchasers", force: :cascade do |t|
@@ -32,6 +28,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_16_163240) do
     t.float "total_income"
     t.string "merchant_address"
     t.string "merchant_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_roles", force: :cascade do |t|
+    t.string "role_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

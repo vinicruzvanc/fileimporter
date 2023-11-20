@@ -2,6 +2,7 @@ class PurchasersController < ApplicationController
   before_action :set_purchaser, only: %i[show edit update destroy]
 
 def import
+
   file = params[:file]
 
   # redirecionar se algum dado estiver errado
