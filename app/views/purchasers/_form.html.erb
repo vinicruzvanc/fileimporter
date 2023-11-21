@@ -1,9 +1,9 @@
-<%= form_with(model: purchaser) do |form| %>
-  <% if purchaser.errors.any? %>
+<%= form_for @purchaser do |form| %>
+  <% if @purchaser.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(purchaser.errors.count, "erro") %> impedem o cadastro de ser salvo:</h2>
+      <h2><%= pluralize(@purchaser.errors.count, "erro") %> impedem o cadastro de ser salvo:</h2>
       <ul>
-        <% purchaser.errors.each do |error| %>
+        <% @purchaser.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>

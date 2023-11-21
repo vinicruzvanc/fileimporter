@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   
   root 'pages#home'
 
+  get 'welcome', to: 'pages#welcome', as: 'welcome'
+
   resources :authentications, controller: "authentication_users"
 
   resources :login_users, only: [:new, :create, :destroy]

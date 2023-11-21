@@ -1,8 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :user_logged_in?
-  before_action :user_role?
-
-  #adicionar um before_action para o user_role? e certificar que somente o admin pode fazer qualquer coisa
+  before_action :role
+  helper_method :current_user
 
   private
 
@@ -15,10 +14,8 @@ class ApplicationController < ActionController::Base
       return redirect_to login_path, alert: 'É necessário logar no sistema para continuar!' unless current_user
     end
 
-    def user_role?
-    #implementar uma lógica para achar o role_name
-      
-      
+    def role
+      role = UserRole.find(current_user.user_role_id).role_name
+      return redirect_to purchasers_path, alert: 'Permissão negada' unless role == "ADMIN"
     end
-
 end

@@ -1,45 +1,45 @@
 class PurchasersController < ApplicationController
   before_action :set_purchaser, only: %i[show edit update destroy]
+  before_action :not_found, only: %i[show edit update destroy]
+  skip_before_action :role, only: %i[ index show new create edit update destroy]
+
+def not_found
+  if @purchaser.authentication_id != current_user.id
+    raise ActiveRecord::RecordNotFound
+  end
+end
 
 def import
 
   file = params[:file]
 
-  # redirecionar se algum dado estiver errado
-
   return redirect_to root_path, alert: 'Nenhum arquivo foi selecionado!' unless file
   return redirect_to root_path, alert: 'Selecione um arquivo no formato ".txt" ou ".csv"!' unless file.content_type == 'text/csv' ||
    file.content_type == 'text/plain'
   return redirect_to root_path, alert: 'Dados não importados, verifique se os dados estão separados por "TAB" ou ";"!' unless File.read(file.path).include?(';') || File.read(file.path).include?("\t")
-  # importar dados
+
   fileImportService = FileImportService.new(file)
   fileImportService.import
 
-  # redirecionamento com dados importados corretamente
   redirect_to root_path,
   notice: 'Dados importados com sucesso!'
 end
 
-  # GET /purchasers or /purchasers.json
   def index
-    @purchasers = Purchaser.order(:purchaser_name).page(params[:page])
+    @purchasers = Purchaser.where(authentication: current_user).order(:purchaser_name).page(params[:page])
   end
 
-  # GET /purchasers/1 or /purchasers/1.json
   def show
     @purchaser = Purchaser.find(params[:id])
   end
 
-  # GET /purchasers/new
   def new
     @purchaser = Purchaser.new
   end
 
-  # GET /purchasers/1/edit
   def edit
   end
 
-  # POST /purchasers or /purchasers.json
   def create
     @purchaser = Purchaser.new(purchaser_params)
 
@@ -55,11 +55,11 @@ end
     end
   end
 
-  # PATCH/PUT /purchasers/1 or /purchasers/1.json
   def update
     respond_to do |format|
+
       if @purchaser.update(purchaser_params)
-        @purchaser.save
+
         @purchaser.total_income = @purchaser.item_price * @purchaser.purchase_count
         format.html { redirect_to purchaser_url(@purchaser), notice: "Edição de cadastro efetuada com sucesso!" }
         format.json { render :show, status: :ok, location: @purchaser }
@@ -70,7 +70,6 @@ end
     end
   end
 
-  # DELETE /purchasers/1 or /purchasers/1.json
   def destroy
     @purchaser.destroy
 
@@ -81,12 +80,11 @@ end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_purchaser
       @purchaser = Purchaser.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def purchaser_params
       params.require(:purchaser).permit(:purchaser_name, :item_description, :item_price, :purchase_count, :item_price,:merchant_address, :merchant_name)
     end
