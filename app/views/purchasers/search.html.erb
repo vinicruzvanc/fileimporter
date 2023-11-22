@@ -1,0 +1,16 @@
+<h1> Filtro </h1>
+<%= form_tag search_purchasers_path do %>
+ <div class="form-group">
+    <%= label_tag :order_purchaser_name, "Nome do comprador", style: "display: block" %>
+    <%= text_field_tag :order_purchaser_name %>
+  </div>
+   <div class="form-group">
+    <%= label_tag :order_item_description, "Descrição do item", style: "display: block" %>
+    <%= text_field_tag :order_item_description %>
+  </div>
+     <div class="form-group">
+    <%= label_tag :order_merchant_address, "Endereço do comerciante", style: "display: block" %>
+    <%= text_field_tag :order_merchant_address %>
+  </div>
+   <%= submit_tag "Executar", class:"btn btn-primary btn-dark" %>
+<% end %>

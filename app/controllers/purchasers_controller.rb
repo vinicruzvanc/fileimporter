@@ -1,7 +1,7 @@
 class PurchasersController < ApplicationController
   before_action :set_purchaser, only: %i[show edit update destroy]
   before_action :not_found, only: %i[show edit update destroy]
-  skip_before_action :role, only: %i[ index show new create edit update destroy]
+  skip_before_action :role, only: %i[ show index show new create edit update destroy]
 
 def not_found
   if @purchaser.authentication_id != current_user.id
@@ -18,12 +18,22 @@ def import
    file.content_type == 'text/plain'
   return redirect_to root_path, alert: 'Dados não importados, verifique se os dados estão separados por "TAB" ou ";"!' unless File.read(file.path).include?(';') || File.read(file.path).include?("\t")
 
-  fileImportService = FileImportService.new(file)
+  fileImportService = FileImportService.new(file, current_user.id)
+
   fileImportService.import
 
   redirect_to root_path,
   notice: 'Dados importados com sucesso!'
 end
+
+  def search
+    #fazer a validação no index talvez?
+    @purchasers = Purchaser.where(authentication: current_user)
+  end
+
+  def search_create
+    @purchasers = Purchaser.search(search_params)
+  end
 
   def index
     @purchasers = Purchaser.where(authentication: current_user).order(:purchaser_name).page(params[:page])
@@ -42,6 +52,8 @@ end
 
   def create
     @purchaser = Purchaser.new(purchaser_params)
+
+    @purchaser.authentication_id = current_user.id
 
     respond_to do |format|
       if @purchaser.save       
@@ -86,6 +98,10 @@ end
     end
 
     def purchaser_params
-      params.require(:purchaser).permit(:purchaser_name, :item_description, :item_price, :purchase_count, :item_price,:merchant_address, :merchant_name)
+      params.require(:purchaser).permit(:purchaser_name, :item_description, :item_price, :purchase_count,:merchant_address, :merchant_name)
+    end
+
+    def search_params
+      params.permit(:order_purchaser_name, :order_item_description, :order_merchant_address)
     end
 end

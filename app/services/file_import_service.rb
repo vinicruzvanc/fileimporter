@@ -2,8 +2,9 @@ class FileImportService
 
     require 'csv'
 
-    def initialize(file)
+    def initialize(file, current_user_id)
       @file = file
+      @current_user_id = current_user_id
     end
 
     def import
@@ -27,7 +28,8 @@ class FileImportService
             purchase_count: purchase_count,
             total_income: newTotalIncomeCSV,
             merchant_address: merchant_address,
-            merchant_name: merchant_name
+            merchant_name: merchant_name,
+            authentication_id: @current_user_id
           )
 
           importCSV.save
@@ -55,7 +57,8 @@ class FileImportService
               purchase_count: purchase_count,
               total_income: newTotalIncomeText,
               merchant_address: merchant_address,
-              merchant_name: merchant_name
+              merchant_name: merchant_name,
+              authentication_id: @current_user_id
             )
 
             importText.save

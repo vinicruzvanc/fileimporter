@@ -1,5 +1,9 @@
 <br>
 <%= paginate @purchasers, window: 5 %>
+<div id="purchasers_search">
+    <%= link_to "Filtros de Busca", search_purchasers_path, class:"btn btn-secondary btn-dark" %>
+  </div>
+  <br>
 <table class="table">
   <thead class="thead-dark">
     <tr>
