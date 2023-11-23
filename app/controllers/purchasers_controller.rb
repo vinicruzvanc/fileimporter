@@ -27,12 +27,11 @@ def import
 end
 
   def search
-    #fazer a validação no index talvez?
-    @purchasers = Purchaser.where(authentication: current_user)
   end
 
-  def search_create
-    @purchasers = Purchaser.search(search_params)
+  def search_index
+    binding.pry
+    @purchasers = Purchaser.where(authentication: current_user).search(:order_purchaser_name, :order_item_description, :order_merchant_address).order(:purchaser_name).page(params[:page])
   end
 
   def index
@@ -56,7 +55,7 @@ end
     @purchaser.authentication_id = current_user.id
 
     respond_to do |format|
-      if @purchaser.save       
+      if @purchaser.save
         @purchaser.total_income = @purchaser.purchase_count * @purchaser.item_price
         format.html { redirect_to purchaser_url(@purchaser), notice: "Cadastro efetuado com sucesso!" }
         format.json { render :show, status: :created, location: @purchaser }

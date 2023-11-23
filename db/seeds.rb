@@ -8,3 +8,4 @@
 
 UserRole.create(role_name: "ADMIN")
 UserRole.create(role_name: "SISTEMA")
+Authentication.create(username: "teste1", password: "11111", user_role_id: 1)
