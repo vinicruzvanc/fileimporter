@@ -1,16 +1,20 @@
 <h1> Filtro </h1>
-<%= form_tag custom_search_purchasers_path do %>
+<%= form_tag purchasers_path, method: :get do %>
  <div class="form-group">
-    <%= label_tag :order_purchaser_name, "Nome do comprador", style: "display: block" %>
-    <%= text_field_tag :order_purchaser_name %>
+    <%= label_tag :purchaser_name, "Nome do comprador", style: "display: block" %>
+    <%= text_field_tag :purchaser_name %>
   </div>
    <div class="form-group">
-    <%= label_tag :order_item_description, "Descrição do item", style: "display: block" %>
-    <%= text_field_tag :order_item_description %>
+    <%= label_tag :item_description, "Descrição do item", style: "display: block" %>
+    <%= text_field_tag :item_description %>
   </div>
-     <div class="form-group">
-    <%= label_tag :order_merchant_address, "Endereço do comerciante", style: "display: block" %>
-    <%= text_field_tag :order_merchant_address %>
+  <div class="form-group">
+    <%= label_tag :merchant_address, "Endereço do comerciante", style: "display: block" %>
+    <%= text_field_tag :merchant_address %>
+  </div>
+  <div class="form-group">
+    <%= label_tag :merchant_name, "Nome do comerciante", style: "display: block" %>
+    <%= text_field_tag :merchant_name %>
   </div>
    <%= submit_tag "Executar", class:"btn btn-primary btn-dark" %>
 <% end %>

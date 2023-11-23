@@ -19,7 +19,6 @@
   </thead>
   <tbody>
     <% @purchasers.each do |purchaser| %>
-
       <tr>
         <td style="text-align: center;"><%= purchaser.purchaser_name%></td>
         <td style="text-align: center;"><%= purchaser.item_description%></td>
@@ -44,3 +43,4 @@
   </div>
   <br>
 <%= paginate @purchasers, window: 5 %>
+<%= page_entries_info @purchasers %>

@@ -1,7 +1,7 @@
 class PurchasersController < ApplicationController
   before_action :set_purchaser, only: %i[show edit update destroy]
   before_action :not_found, only: %i[show edit update destroy]
-  skip_before_action :role, only: %i[ show index show new create edit update destroy]
+  skip_before_action :role, only: %i[ search show index show new create edit update destroy]
 
 def not_found
   if @purchaser.authentication_id != current_user.id
@@ -28,14 +28,19 @@ end
 
   def search
   end
-
-  def search_index
-    binding.pry
-    @purchasers = Purchaser.where(authentication: current_user).search(:order_purchaser_name, :order_item_description, :order_merchant_address).order(:purchaser_name).page(params[:page])
-  end
-
+  
   def index
-    @purchasers = Purchaser.where(authentication: current_user).order(:purchaser_name).page(params[:page])
+
+    purchaser_name = params[:purchaser_name]
+    item_description = params[:item_description]
+    merchant_address = params[:merchant_address]
+    merchant_name = params[:merchant_name]
+
+    if purchaser_name || item_description || merchant_address
+      @purchasers = Purchaser.where(authentication: current_user).search(purchaser_name, item_description, merchant_address, merchant_name).page(params[:page])
+    else
+      @purchasers = Purchaser.where(authentication: current_user).order(:purchaser_name).page(params[:page])
+    end
   end
 
   def show
@@ -53,10 +58,10 @@ end
     @purchaser = Purchaser.new(purchaser_params)
 
     @purchaser.authentication_id = current_user.id
-
+    @purchaser.total_income = @purchaser.purchase_count * @purchaser.item_price
+    
     respond_to do |format|
       if @purchaser.save
-        @purchaser.total_income = @purchaser.purchase_count * @purchaser.item_price
         format.html { redirect_to purchaser_url(@purchaser), notice: "Cadastro efetuado com sucesso!" }
         format.json { render :show, status: :created, location: @purchaser }
       else
@@ -67,11 +72,9 @@ end
   end
 
   def update
+    @purchaser.total_income = @purchaser.item_price * @purchaser.purchase_count
     respond_to do |format|
-
       if @purchaser.update(purchaser_params)
-
-        @purchaser.total_income = @purchaser.item_price * @purchaser.purchase_count
         format.html { redirect_to purchaser_url(@purchaser), notice: "Edição de cadastro efetuada com sucesso!" }
         format.json { render :show, status: :ok, location: @purchaser }
       else
@@ -98,9 +101,5 @@ end
 
     def purchaser_params
       params.require(:purchaser).permit(:purchaser_name, :item_description, :item_price, :purchase_count,:merchant_address, :merchant_name)
-    end
-
-    def search_params
-      params.permit(:order_purchaser_name, :order_item_description, :order_merchant_address)
     end
 end

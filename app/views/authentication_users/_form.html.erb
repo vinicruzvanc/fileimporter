@@ -10,17 +10,19 @@
     </div>
   <% end %>
   <div class="form-group">
-    <%= form.label :username, "Nome de Usuário", style: "display: block" %>
+    <%= form.label :username, style: "display: block" %>
     <%= form.text_field :username, class:"form-control" %>
   </div>
   <div class="form-group">
-    <%= form.label :password, "Senha", style: "display: block" %>
+    <%= form.label :password, style: "display: block" %>
     <%= form.password_field :password, class:"form-control" %>
-    <%= form.label :password_confirmation, "Confirme a senha", style: "display: block" %>
+  </div>
+  <div class="form-group">
+    <%= form.label :password_confirmation, style: "display: block" %>
     <%= form.password_field :password_confirmation, class:"form-control" %>
   </div>
   <div class="form-group">
-    <%= form.label :user_role_id, "Permissão", style: "display: block" %>
+    <%= form.label :user_role_id, style: "display: block" %>
     <%= form.select :user_role_id, @user_roles, class:"form-control" %>
   </div>
  <%= form.submit "Confirmar", class:"btn btn-secondary" %>
